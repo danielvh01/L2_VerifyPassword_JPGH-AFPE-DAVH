@@ -5,11 +5,29 @@
  */
 package VerifyPassword;
 
+import static java.awt.image.ImageObserver.WIDTH;
+import java.util.List;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author famve
  */
 public class VerifPass extends javax.swing.JFrame {
+    
+    public String path = "";
+    public String path2 = "";
 
     /**
      * Creates new form VerifPass
@@ -27,80 +45,262 @@ public class VerifPass extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        TF_Pass = new javax.swing.JTextField();
+        btnPathResultado = new javax.swing.JButton();
+        TF_pathR = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        btnVerify = new javax.swing.JButton();
+        TF_Pass = new javax.swing.JTextField();
+        btnPathPuntuacion = new javax.swing.JButton();
+        TF_PathP = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Verificar");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPathResultado.setText("Cargar");
+        btnPathResultado.setToolTipText("");
+        btnPathResultado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPathResultadoActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Password Security");
+        jLabel1.setText("Seguridad de contraseña");
+
+        btnVerify.setText("Verificar");
+        btnVerify.setToolTipText("");
+        btnVerify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerifyActionPerformed(evt);
+            }
+        });
+
+        btnPathPuntuacion.setText("Cargar");
+        btnPathPuntuacion.setToolTipText("");
+        btnPathPuntuacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPathPuntuacionActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Resultado");
+
+        jLabel3.setText("Puntuación");
+
+        jLabel4.setText("Ingrese contraseña");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(TF_PathP, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TF_pathR, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(btnPathPuntuacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPathResultado)
+                .addGap(76, 76, 76))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TF_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(btnVerify)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TF_Pass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(172, 172, 172))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(208, 208, 208))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TF_pathR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TF_PathP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPathResultado)
+                    .addComponent(btnPathPuntuacion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TF_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(jButton1)
-                .addGap(79, 79, 79))
+                .addGap(18, 18, 18)
+                .addComponent(btnVerify)
+                .addGap(33, 33, 33))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnPathResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathResultadoActionPerformed
+        JFileChooser dialog = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Text File", "txt");
+        File fileImage;
+        String fileRoute;
+        dialog.setFileFilter(filter);
+        int value = dialog.showOpenDialog(this);
+        if(value == JFileChooser.APPROVE_OPTION)
+        {
+            fileImage = dialog.getSelectedFile();
+            path2 = fileImage.getPath();
+            
+            TF_pathR.setText(path2);            
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnPathResultadoActionPerformed
+
+    private void btnVerifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyActionPerformed
         String inputPassword = TF_Pass.getText();
         int uppercase = 0;
         int lowercase = 0;
         int specialcharacters = 0;
-        int digits = 0;
-        char[] Password = inputPassword.toCharArray();
+        int digits = 0;        
+        String[] Password = inputPassword.split("");
         for (int index = 0; index < inputPassword.length(); index++)
         {
-            if (Character.isUpperCase(Password[index]))
+            if (Password[index].matches("^[A-Z]$"))
             {
-                uppercase = 1;
+                uppercase += 1;
             }
-            if (Character.isLowerCase(Password[index]))
+            if (Password[index].matches("^[a-z]$"))
             {
-                lowercase = 1;
+                lowercase += 1;
             }
-            if (Character.isDigit(Password[index]))
+            if (Password[index].matches("^[0-9]$"))
             {
-                digits = 1;
+                digits += 1;
             }
-            if()
+            if (Password[index].matches("^[/¿?%$#]$"))
+            {
+                specialcharacters += 1;
+            }
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(path2));
+            BufferedReader br2 = new BufferedReader(new FileReader(path));
+            String linea = "";
+            //resultados
+            List<String> list = new ArrayList<String>();
+            list = br.lines().collect(Collectors.toList());
+            //puntuacion
+            List<String> list2 = new ArrayList<String>();
+            list2 = br2.lines().collect(Collectors.toList());
+            int puntuacion = 0;
+            if(Integer.parseInt(list2.get(0)) > inputPassword.length())
+            {
+                JOptionPane.showMessageDialog(null, "La contraseña no puede contener menos de " + list2.get(0) + " caracteres.", "Error",WIDTH);
+            }
+            else 
+            {
+                puntuacion += Integer.parseInt(list2.get(1)) * inputPassword.length();
+                puntuacion += Integer.parseInt(list2.get(2)) * uppercase;
+                puntuacion += (uppercase + lowercase) + Integer.parseInt(list2.get(3));
+                puntuacion += digits + Integer.parseInt(list2.get(4));
+                puntuacion += specialcharacters * (inputPassword.length() + Integer.parseInt(list2.get(5)));
+                if(specialcharacters == 0 && digits == 0)
+                {
+                    puntuacion -= Integer.parseInt(list2.get(6));
+                }
+                if(digits == inputPassword.length())
+                {
+                    puntuacion -= Integer.parseInt(list2.get(7));
+                }
+            
+            
+            String[] punt = list.get(0).split("\\,");
+            String message = "";
+            if(puntuacion >= Integer.parseInt(punt[0]) && puntuacion <= Integer.parseInt(punt[1]) )
+            {
+                message = "Contraseña insegura";                
+            }
+            else
+            {
+                punt = list.get(1).split("\\,");
+                if(puntuacion >= Integer.parseInt(punt[0]) && puntuacion <= Integer.parseInt(punt[1]) )
+                {
+                    message = "Contraseña poco segura"; 
+                }
+                else
+                {
+                    punt = list.get(2).split("\\,");
+                    if(puntuacion >= Integer.parseInt(punt[0]) && puntuacion <= Integer.parseInt(punt[1]) )
+                    {
+                        message = "Contraseña segura"; 
+                    }
+                    else
+                    {
+                        punt = list.get(3).split("\\,");
+                        if(puntuacion >= Integer.parseInt(punt[0]))
+                        {
+                            message = "Contraseña muy segura"; 
+                        }
+
+
+                    }
+                
+                }
+                               
+            }
+                JOptionPane.showMessageDialog(null,message , "Puntuacion",WIDTH);
+            }
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(VerifPass.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VerifPass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnVerifyActionPerformed
+
+    private void btnPathPuntuacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathPuntuacionActionPerformed
+        JFileChooser dialog = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Text File", "txt");
+        File fileImage;
+        String fileRoute;
+        dialog.setFileFilter(filter);
+        int value = dialog.showOpenDialog(this);
+        if(value == JFileChooser.APPROVE_OPTION)
+        {
+            fileImage = dialog.getSelectedFile();
+            path = fileImage.getPath();
+            
+            TF_PathP.setText(path);            
+        }
+    }//GEN-LAST:event_btnPathPuntuacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,7 +339,14 @@ public class VerifPass extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TF_Pass;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField TF_PathP;
+    private javax.swing.JTextField TF_pathR;
+    private javax.swing.JButton btnPathPuntuacion;
+    private javax.swing.JButton btnPathResultado;
+    private javax.swing.JButton btnVerify;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }
